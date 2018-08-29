@@ -2,26 +2,33 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from 'angularfire2/firestore'
+import {Observable}from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
-//import { AngularFirestore } from 'angularfire2/firestore';
 
-
+interface Note{
+  name: string;
+  id?:string;
+}
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = LoginPage;
-
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  notesCollection: AngularFirestoreCollection<Note>;
+  public notes: Observable<Note[]>;
+
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,private afs:AngularFirestore) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -39,6 +46,9 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    // this.notesCollection = this.afs.collection('wallets')
+    // this.notes = this.notesCollection.valueChanges()
+    // console.log(this.notes,this.notesCollection)
   }
 
   openPage(page) {
@@ -46,4 +56,6 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+
 }

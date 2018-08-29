@@ -9,7 +9,7 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let group of groups"> 
+  <ion-card *ngFor="let group of groups | async"> 
     <ion-card-header>
       {{group.name}}
     </ion-card-header>

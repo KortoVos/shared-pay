@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 import { MyApp } from './app.component';
@@ -14,18 +14,8 @@ import { RegisterPage } from '../pages/register/register';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-
-
-
-const firebaseAuth = {
-  apiKey: "AIzaSyBB61sjz7B22BzaMXLS3LCiqx4K16zy1w0",
-  authDomain: "sharedpay-89278.firebaseapp.com",
-  databaseURL: "https://sharedpay-89278.firebaseio.com",
-  projectId: "sharedpay-89278",
-  storageBucket: "sharedpay-89278.appspot.com",
-  messagingSenderId: "176431492416"
-};
+import { environment} from './environment';
+const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
   declarations: [
@@ -38,9 +28,9 @@ const firebaseAuth = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseAuth),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule 
+    AngularFirestoreModule 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
