@@ -1,0 +1,7 @@
+{
+  "name": "shared-pay",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
