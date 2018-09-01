@@ -4,12 +4,13 @@ import {AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} fr
 import {Observable}from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import 'rxjs/add/operator/map';
-
+import {GroupPage} from '../group/group'
 
 interface Group{
+  id?:string;
   name: string;
   admin: string;
-  id?:string;
+  member?: string[];
 }
 
 
@@ -26,7 +27,15 @@ export class HomePage {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         this.groupsCollection = this.afs.collection<Group>('wallets', ref => ref.where('admin', '==',res.uid ));
-        this.groups = this.groupsCollection.valueChanges()
+        this.groups = this.groupsCollection.snapshotChanges().map(actions=>{
+          return actions.map(a=>{
+            return{
+              id:a.payload.doc.id,
+              name:a.payload.doc.data().name,
+              admin:a.payload.doc.data().admin,
+            }
+          })
+        })
       } else {
         console.log('user not logged in');
       }
@@ -70,5 +79,12 @@ export class HomePage {
     });
     prompt.present();
   }
+
+  showGroup(groupId: string) {
+    this.navCtrl.push(GroupPage,{
+      groupId:groupId
+    });
+  }
+
 
 }

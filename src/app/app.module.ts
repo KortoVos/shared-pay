@@ -11,6 +11,8 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import {GroupPage} from '../pages/group/group';
+import {AddMemberPage} from '../pages/add-member/add-member'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,14 +25,16 @@ const firebaseConfig = environment.firebaseConfig;
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    GroupPage,
+    AddMemberPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule 
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,7 +42,9 @@ const firebaseConfig = environment.firebaseConfig;
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    GroupPage,
+    AddMemberPage
   ],
   providers: [
     StatusBar,

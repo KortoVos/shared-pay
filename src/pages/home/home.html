@@ -9,12 +9,12 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let group of groups | async"> 
+  <ion-card *ngFor="let group of groups | async" (click)="showGroup(group.id)"> 
     <ion-card-header>
       {{group.name}}
     </ion-card-header>
     <ion-card-content>
-      The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+      Admin: {{group.id}}
     </ion-card-content>
   </ion-card>
 
