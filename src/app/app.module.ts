@@ -11,8 +11,11 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
-import {GroupPage} from '../pages/group/group';
-import {AddMemberPage} from '../pages/add-member/add-member'
+import {TabsPage} from '../pages/tabs/tabs'
+  import {GroupPage} from '../pages/group/group';
+    import {AddMemberPage} from '../pages/add-member/add-member'
+  import { AccountPage } from '../pages/account/account'
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +30,9 @@ const firebaseConfig = environment.firebaseConfig;
     LoginPage,
     RegisterPage,
     GroupPage,
-    AddMemberPage
+    AddMemberPage,
+    TabsPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,9 @@ const firebaseConfig = environment.firebaseConfig;
     LoginPage,
     RegisterPage,
     GroupPage,
-    AddMemberPage
+    AddMemberPage,
+    TabsPage,
+    AccountPage
   ],
   providers: [
     StatusBar,

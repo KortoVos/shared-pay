@@ -4,7 +4,7 @@ import {AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} fr
 import {Observable}from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import 'rxjs/add/operator/map';
-import {GroupPage} from '../group/group'
+import {TabsPage} from '../tabs/tabs'
 
 interface Group{
   id?:string;
@@ -81,7 +81,7 @@ export class HomePage {
   }
 
   showGroup(groupId: string) {
-    this.navCtrl.push(GroupPage,{
+    this.navCtrl.push(TabsPage,{
       groupId:groupId
     });
   }

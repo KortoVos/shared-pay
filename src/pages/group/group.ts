@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { AddMemberPage } from '../add-member/add-member';
 
 
+
 /**
  * Generated class for the GroupPage page.
  *
@@ -37,8 +38,12 @@ export class GroupPage {
   group: Observable<Group>;
   private groupDoc: AngularFirestoreDocument<Group>;
   memberList: Member;
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private afs:AngularFirestore,public afAuth: AngularFireAuth) {
+    console.log("groupID");
     this.groupId = navParams.get("groupId");
+    console.log("groupID",this.groupId);
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         this.groupDoc = afs.doc<Group>('wallets/'+navParams.get("groupId"));
@@ -52,6 +57,7 @@ export class GroupPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroupPage');
+    console.log(this.navParams.get("groupId"));
   }
 
   addMember(){
