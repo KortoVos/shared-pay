@@ -6,14 +6,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import 'rxjs/add/operator/map';
 import {TabsPage} from '../tabs/tabs'
 
-interface Group{
-  id?:string;
-  name: string;
-  admin: string;
-  member?: string[];
-}
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

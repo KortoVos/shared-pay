@@ -15,11 +15,13 @@ import {TabsPage} from '../pages/tabs/tabs'
   import {GroupPage} from '../pages/group/group';
     import {AddMemberPage} from '../pages/add-member/add-member'
   import { AccountPage } from '../pages/account/account'
+    import { AddRecordPage } from '../pages/add-record/add-record';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { environment} from './environment';
+
 const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -32,7 +34,8 @@ const firebaseConfig = environment.firebaseConfig;
     GroupPage,
     AddMemberPage,
     TabsPage,
-    AccountPage
+    AccountPage,
+    AddRecordPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ const firebaseConfig = environment.firebaseConfig;
     GroupPage,
     AddMemberPage,
     TabsPage,
-    AccountPage
+    AccountPage,
+    AddRecordPage
   ],
   providers: [
     StatusBar,

@@ -15,6 +15,29 @@ interface Note{
   name: string;
   id?:string;
 }
+declare global {
+  interface Group{
+    id?:string;
+    name: string;
+    admin: string;
+    member?: Member[];
+    records?: WalletRecord[];
+  }
+
+  interface Member{
+    name: string;
+    joinDate: string;
+    avatar?:string;
+  }
+  
+  interface WalletRecord{
+    name: string;
+    description?: string;
+    date: string;
+    amount:number;
+    payer?:string[];
+  }
+}
 
 @Component({
   templateUrl: 'app.html'

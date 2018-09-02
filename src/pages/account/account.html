@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>account</ion-title>
+    <ion-title>{{(group | async)?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let rec of (group | async)?.records" (click)="showGroup(group.id)">
+      <h2>{{rec.name}} - {{rec.date}}</h2>
+      <h3 [style.color]="rec.amount<0?'red':'green'">Price: {{rec.amount}}</h3>
+      <p>Payer: {{rec.payer}}</p>
+    </ion-item>
+  </ion-list>
 
+  <ion-fab right bottom>
+    <button ion-fab mini (click)="addBill()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
