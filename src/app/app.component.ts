@@ -19,15 +19,19 @@ declare global {
   interface Group{
     id?:string;
     name: string;
-    admin: string;
-    member?: Member[];
+    admins_refs: String[];
+    members_refs?: String[];
+    members?:User[];
     records?: WalletRecord[];
   }
 
-  interface Member{
+  interface User{
+    id?:string;
     name: string;
-    joinDate: string;
+    email?:string;
+    createDate?: string;
     avatar?:string;
+    money?:number;
   }
   
   interface WalletRecord{

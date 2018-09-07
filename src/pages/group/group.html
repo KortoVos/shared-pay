@@ -15,12 +15,12 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let memb of (group | async)?.member" (click)="showGroup(group.id)">
+    <ion-item *ngFor="let memb of (group | async)?.members" (click)="showGroup(group.id)">
       <ion-avatar item-start>
         <img src={{memb.avatar}}>
       </ion-avatar>
       <h2>{{memb.name}}</h2>
-      <h3>{{memb.joinDate}}</h3>
+      <h3 [style.color]="memb.money<0?'red':'green'">{{(memb.money).toFixed(2)}}€</h3>
       <!-- <p>I've had a pretty messed up day. If we just...</p> -->
     </ion-item>
   </ion-list>

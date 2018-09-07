@@ -1,30 +1,31 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController,AlertController, Item } from 'ionic-angular';
-import {AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument} from 'angularfire2/firestore'
-import {Observable}from 'rxjs/Observable';
+import { Component } from '@angular/core';
+import { NavController, AlertController } from 'ionic-angular';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
+import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { TabsPage } from '../tabs/tabs'
 import 'rxjs/add/operator/map';
-import {TabsPage} from '../tabs/tabs'
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  
+
   groupsCollection: AngularFirestoreCollection<Group>;
   groups: Observable<Group[]>;
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController,private afs:AngularFirestore,public afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private afs: AngularFirestore, public afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        this.groupsCollection = this.afs.collection<Group>('wallets', ref => ref.where('admin', '==',res.uid ));
-        this.groups = this.groupsCollection.snapshotChanges().map(actions=>{
-          return actions.map(a=>{
-            return{
-              id:a.payload.doc.id,
-              name:a.payload.doc.data().name,
-              admin:a.payload.doc.data().admin,
+        this.groupsCollection = afs.collection<Group>('wallets', ref => ref.where('members_refs', 'array-contains', res.uid));
+        this.groups = this.groupsCollection.snapshotChanges().map(actions => {
+          return actions.map(a => {
+            return {
+              id: a.payload.doc.id,
+              name: a.payload.doc.data().name,
+              admins_refs: a.payload.doc.data().admins_refs,
+              members_refs: a.payload.doc.data().members_refs,
             }
           })
         })
@@ -34,7 +35,7 @@ export class HomePage {
     });
   }
 
-  newGroup(){
+  newGroup() {
     const prompt = this.alertCtrl.create({
       title: 'Group Name',
       message: "Enter a name for this new Groupwallet",
@@ -57,10 +58,25 @@ export class HomePage {
             this.afAuth.authState.subscribe(res => {
               if (res && res.uid) {
                 const newGroup: Group = {
-                  name:data.title,
-                  admin:res.uid
-                } 
-                this.groupsCollection.add(newGroup);
+                  name: data.title,
+                  admins_refs:[res.uid],
+                  members_refs:[res.uid],
+                  members:[{
+                    name:res.email,
+                    email:res.email,
+                    id:res.uid,
+                    money:0
+                  }]
+                }
+                this.groupsCollection.add(newGroup).then(grp=>{
+                  this.afs.doc('user/'+res.uid).ref.get().then(uDoc=>{
+                    var userList = uDoc.data().groups_refs;
+                    if(!userList){ userList=[] }
+                    userList.push(grp.id);
+                    this.afs.collection('user').doc(res.uid).update({groups_refs:userList});
+                  });
+                });
+
               } else {
                 console.log('user not logged in');
               }
@@ -73,8 +89,8 @@ export class HomePage {
   }
 
   showGroup(groupId: string) {
-    this.navCtrl.push(TabsPage,{
-      groupId:groupId
+    this.navCtrl.push(TabsPage, {
+      groupId: groupId
     });
   }
 

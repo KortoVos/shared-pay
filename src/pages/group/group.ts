@@ -16,16 +16,18 @@ export class GroupPage {
   groupsCollection: AngularFirestoreCollection<Group>;
   group: Observable<Group>;
   private groupDoc: AngularFirestoreDocument<Group>;
-  memberList: Member;
+  memberList: User;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private afs:AngularFirestore,public afAuth: AngularFireAuth) {
     this.groupId = navParams.get("groupId");
+    console.log("groupID",this.groupId);
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         this.groupDoc = afs.doc<Group>('wallets/'+navParams.get("groupId"));
         this.group = this.groupDoc.valueChanges();
-        console.log("Group: ",this.group);
+        console.log("test32")
+        this.group.map(res=>console.log(res))
       } else {
         console.log('user not logged in');
       }

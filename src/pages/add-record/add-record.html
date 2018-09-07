@@ -27,7 +27,7 @@
     <ion-item>
       <ion-label>Who Payed</ion-label>
       <ion-select [(ngModel)]="payer" multiple="true" cancelText="Nope" okText="Yeah!">
-          <ion-option *ngFor="let memb of (group | async)?.member" value="{{memb.name}}" selected="false">{{memb.name}}</ion-option>
+          <ion-option *ngFor="let memb of (group | async)?.members" value="{{memb.name}}" selected="false">{{memb.id}}</ion-option>
       </ion-select>
     </ion-item>
 
