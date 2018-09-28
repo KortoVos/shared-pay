@@ -32,6 +32,8 @@ declare global {
     createDate?: string;
     avatar?:string;
     money?:number;
+    pays?:boolean;
+    paysAmount?:number;
   }
   
   interface WalletRecord{

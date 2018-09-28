@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TabsPage } from '../tabs/tabs'
 import 'rxjs/add/operator/map';
+import toonavatar from 'cartoon-avatar';
 
 @Component({
   selector: 'page-home',
@@ -60,13 +61,7 @@ export class HomePage {
                 const newGroup: Group = {
                   name: data.title,
                   admins_refs:[res.uid],
-                  members_refs:[res.uid],
-                  members:[{
-                    name:res.email,
-                    email:res.email,
-                    id:res.uid,
-                    money:0
-                  }]
+                  members_refs:[res.uid]
                 }
                 this.groupsCollection.add(newGroup).then(grp=>{
                   this.afs.doc('user/'+res.uid).ref.get().then(uDoc=>{
@@ -75,6 +70,14 @@ export class HomePage {
                     userList.push(grp.id);
                     this.afs.collection('user').doc(res.uid).update({groups_refs:userList});
                   });
+                  var ava = toonavatar.generate_avatar();
+                  var usr:User = {
+                    name:res.email,
+                    createDate:new Date().toLocaleString(),
+                    avatar:ava,
+                    money:0
+                  }
+                  this.afs.doc('wallets/'+grp.id).collection('wallet_members').doc(new Date().getTime().toString()).set(usr);
                 });
 
               } else {

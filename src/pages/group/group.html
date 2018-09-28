@@ -15,7 +15,8 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let memb of (group | async)?.members" (click)="showGroup(group.id)">
+    <!-- (click)="showGroup(group.id)"-->
+    <ion-item *ngFor="let memb of (walletUsers | async)" > 
       <ion-avatar item-start>
         <img src={{memb.avatar}}>
       </ion-avatar>

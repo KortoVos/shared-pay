@@ -13,21 +13,24 @@ import { AddMemberPage } from '../add-member/add-member';
 })
 export class GroupPage {
   groupId:string;
-  groupsCollection: AngularFirestoreCollection<Group>;
-  group: Observable<Group>;
-  private groupDoc: AngularFirestoreDocument<Group>;
-  memberList: User;
-
+  walletMembersCollection: AngularFirestoreCollection<User>;
+  walletUsers: Observable<User[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private afs:AngularFirestore,public afAuth: AngularFireAuth) {
     this.groupId = navParams.get("groupId");
-    console.log("groupID",this.groupId);
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        this.groupDoc = afs.doc<Group>('wallets/'+navParams.get("groupId"));
-        this.group = this.groupDoc.valueChanges();
-        console.log("test32")
-        this.group.map(res=>console.log(res))
+        this.walletMembersCollection = afs.collection<Group>('wallets').doc(this.groupId).collection('wallet_members');
+        this.walletUsers = this.walletMembersCollection.snapshotChanges().map(actions => {
+          return actions.map(a=>{
+            return {
+              name:a.payload.doc.data().name,
+              avatar:a.payload.doc.data().avatar,
+              createDate:a.payload.doc.data().createDate,
+              money:a.payload.doc.data().money
+            }
+          })
+        })
       } else {
         console.log('user not logged in');
       }
@@ -36,7 +39,6 @@ export class GroupPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroupPage');
-    console.log(this.group);
   }
 
   addMember(){

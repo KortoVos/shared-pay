@@ -22,19 +22,14 @@ export class AddMemberPage {
 
   inviteUser(){
     this.groupDoc.ref.get().then(grp=>{
-      console.log("try update")
-      var memberList: User[] = grp.data().members;
-      if(!memberList){ memberList=[] }
       var ava = toonavatar.generate_avatar({"gender":this.gender});
-      console.log(ava);
-      memberList.push({
+      var usr:User = {
         name:this.email.value,
         createDate:new Date().toLocaleString(),
         avatar:ava,
         money:0
-      });
-      
-      this.groupDoc.update({members:memberList}).then(_ =>this.navCtrl.pop());
+      }
+      this.groupDoc.collection('wallet_members').doc(new Date().getTime().toString()).set(usr).then(_ =>this.navCtrl.pop());
     });
   }
 
