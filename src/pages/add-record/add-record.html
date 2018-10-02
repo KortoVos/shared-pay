@@ -1,9 +1,3 @@
-<!--
-  Generated template for the AddRecordPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item>
       <ion-label floating>Name</ion-label>
@@ -21,34 +15,80 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Price</ion-label>
-      <ion-input type="number" #recordAmount></ion-input>
+      <ion-input type="number" #recordAmount (change)="recordAmountChange()"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-list item-content>
-        <ion-list-header>
-          <b>Who Payed</b>
-        </ion-list-header>
-        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;">
-          <ion-list item-content>
-            <ion-item>
-              <ion-label>{{memb.id}}</ion-label>
-              <ion-checkbox [(ngModel)]="memb.pays"></ion-checkbox>
-            </ion-item>
-            <ion-item>
-              <ion-range [(ngModel)]="memb.paysAmount">
+    <ion-card>
+      <ion-list >
+        <ion-item-divider color="light">
+          <ion-row>
+            <ion-col col-10>
+              <b>Who Payed</b><br>
+              korto
+            </ion-col>
+            <ion-col col-2>
+              <button input ion-button icon-only small [outline]="!showPayer" (click)="showPayer=!showPayer">
+                <ion-icon [name]="!showPayer?'arrow-dropup':'arrow-dropdown'"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-item-divider>
+        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;" [hidden]="showPayer">
+          <ion-grid item-content>
+            <ion-row>
+              <ion-col col-10>
+                <ion-row>
+                  <ion-col col-8>
+                    <h2>
+                      {{memb.name}}
+                    </h2>
+                  </ion-col>
+                  <ion-col col-4>
+                    <ion-item>
+                      <ion-input #payerAmountInput type="number" #recordAmount text-right></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-range  pin="true" #payerAmountSlider (ionChange)="payerAmountChange(memb.id)">
                   <ion-icon range-left small name="cash"></ion-icon>
                 </ion-range>
-            </ion-item>
-          </ion-list>
+              </ion-col>
+              <ion-col col-2>
+                <button #payerAmountCheck ion-button icon-only outline [ngStyle]="{'border-color':checkIfPayer(memb.id)?'#32db64':'#488aff','color':checkIfPayer(memb.id)?'#32db64':'#488aff'}" (click)="activatePayer(memb.id,index)">
+                  <ion-icon name="checkmark" [ngStyle]="{'opacity':checkIfPayer(memb.id)?'1':'0.3'}"></ion-icon>
+                </button>
+                <button ion-button icon-only outline color="danger" (click)="activatePayer(memb.id)">
+                  <ion-icon name="unlock"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
-        <!-- <ion-select [(ngModel)]="payer" (ionChange)="payerSelectChange($event)"  multiple="true" cancelText="Nope" okText="Yeah!">
-              <ion-option *ngFor="let memb of (walletUsers | async)" value="{{memb.id}}" selected="false">{{memb.name}}</ion-option>
-          </ion-select> -->
       </ion-list>
-    </ion-item>
-
+    </ion-card>
   </ion-list>
   <div padding>
     <button block ion-button (click)="addRecord()">Add Record</button>
   </div>
 </ion-content>
+
+
+
+
+    <!--
+          <ion-range [(ngModel)]="memb.paysAmount" disabled="{{memb.pays}}">
+                    <ion-icon range-left small name="cash"></ion-icon>
+                  </ion-range>
+
+
+          
+          <ion-list item-content *ngFor="let memb of (walletUsers | async); let index = index;">
+          <ion-item>
+            <ion-label>{{memb.id}}</ion-label>
+            <ion-checkbox [(ngModel)]="memb.pays"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-range [(ngModel)]="memb.paysAmount">
+                <ion-icon range-left small name="cash"></ion-icon>
+              </ion-range>
+          </ion-item>
+        </ion-list> -->

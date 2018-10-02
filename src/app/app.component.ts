@@ -41,7 +41,7 @@ declare global {
     description?: string;
     date: string;
     amount:number;
-    payer?:string[];
+    payer?:object[];
   }
 }
 
