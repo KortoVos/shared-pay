@@ -25,6 +25,7 @@ export class AccountPage {
         this.walletRecords = this.walletRecordsCollection.snapshotChanges().map(actions => {
           return actions.map(a=>{
             return {
+              id:a.payload.doc.id,
               name:a.payload.doc.data().name,
               amount:a.payload.doc.data().amount,
               date:a.payload.doc.data().date,
@@ -50,7 +51,10 @@ export class AccountPage {
   }
 
   showRecord(recID:string){
-    console.log(recID);
+    this.navCtrl.push(AddRecordPage,{
+      groupId:this.groupId,
+      recID:recID
+    });
   }
 
 }

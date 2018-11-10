@@ -15,11 +15,10 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let rec of (walletRecords | async)" (click)="showRecord(rec.name)">
+    <ion-item *ngFor="let rec of (walletRecords | async)" (click)="showRecord(rec.id)">
       <h2>{{rec.name}} - {{rec.date}}</h2>
       <h3 [style.color]="rec.amount<0?'red':'green'">Price: {{(rec.amount)}}€</h3>
-      <p>Payer: {{rec.payer}}</p>
-      <button ion-button clear item-end>View</button>
+      <!-- <p>Payer: {{rec.payer}}</p> -->
     </ion-item>
   </ion-list>
 

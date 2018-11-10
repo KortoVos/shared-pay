@@ -34,14 +34,17 @@ declare global {
     money?:number;
     pays?:boolean;
     paysAmount?:number;
+    fixed?:boolean;
   }
   
   interface WalletRecord{
+    id?:string;
     name: string;
     description?: string;
     date: string;
     amount:number;
     payer?:object[];
+    buyer?:object[];
   }
 }
 
