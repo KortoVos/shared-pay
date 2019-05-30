@@ -33,28 +33,26 @@
             </ion-col>
           </ion-row>
         </ion-item-divider>
-        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;" [hidden]="showBuyer">
+        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;" [hidden]="showBuyer" style="padding-left: 0px">
           <ion-grid item-content>
             <ion-row [ngStyle]="{'opacity':checkIfBuyer(index)?'1':'0.3'}">
-              <ion-col col-8>
-                <ion-row>
-                  <ion-col col-8>
+
+                  <ion-col col-5>
                     <ion-label>
                       {{memb.name}}
                     </ion-label>
                   </ion-col>
-                  <ion-col col-4>
-                    <ion-item>
-                      <ion-input #buyerAmountInput type="number" text-right (change)="buyerAmountChange(index)"></ion-input>
+                  <ion-col col-3>
+                    <ion-item style="padding-left: 0px">
+                      <ion-input #buyerAmountInput type="number" text-right (change)="buyerAmountChange(index)" style="padding-left: 0px"></ion-input>
                     </ion-item>
                   </ion-col>
-                </ion-row>
-              </ion-col>
+
               <ion-col col-4>
-                <button ion-button icon-only outline color="danger" [ngStyle]="{'border-color':finalBuyerList[index].fixed?'#32db64':'#488aff','color':finalBuyerList[index].fixed?'#32db64':'#488aff'}" (click)="lockBuyer(index)">
+                <button ion-button icon-only outline color="danger" style="float:right" [ngStyle]="{'border-color':finalBuyerList[index].fixed?'#32db64':'#488aff','color':finalBuyerList[index].fixed?'#32db64':'#488aff'}" (click)="lockBuyer(index)">
                     <ion-icon [name]="finalBuyerList[index].fixed?'lock':'unlock'"></ion-icon>
                   </button>
-                <button #buyerAmountCheck ion-button icon-only outline [ngStyle]="{'border-color':checkIfBuyer(index)?'#32db64':'#488aff','color':checkIfBuyer(index)?'#32db64':'#488aff','opacity':'1'}" (click)="activateBuyer(memb.id,index)">
+                <button #buyerAmountCheck ion-button icon-only outline style="float:right" [ngStyle]="{'border-color':checkIfBuyer(index)?'#32db64':'#488aff','color':checkIfBuyer(index)?'#32db64':'#488aff','opacity':'1'}" (click)="activateBuyer(memb.id,index)">
                   <ion-icon name="checkmark" [ngStyle]="{'opacity':checkIfBuyer(index)?'1':'0.3'}"></ion-icon>
                 </button>
               </ion-col>
@@ -69,7 +67,7 @@
         <ion-item-divider color="light">
           <ion-row>
             <ion-col col-10>
-              <b>Who need to Payed</b><br>
+              <b>Who has to Pay</b><br>
               <div class="membLable" *ngFor="let pa of getFinalPayerNameList()">{{pa.memberName}}</div> 
             </ion-col>
             <ion-col col-2>
@@ -79,28 +77,25 @@
             </ion-col>
           </ion-row>
         </ion-item-divider>
-        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;" [hidden]="showPayer">
+        <ion-item *ngFor="let memb of (walletUsers | async); let index = index;" [hidden]="showPayer" style="padding-left: 0px">
           <ion-grid item-content>
             <ion-row [ngStyle]="{'opacity':checkIfPayer(index)?'1':'0.3'}">
-              <ion-col col-8>
-                <ion-row>
-                  <ion-col col-8>
+              
+                  <ion-col col-5>
                     <ion-label>
                       {{memb.name}}
                     </ion-label>
                   </ion-col>
-                  <ion-col col-4>
-                    <ion-item>
-                      <ion-input #payerAmountInput type="number" text-right (change)="payerAmountChange(index)"></ion-input>
+                  <ion-col col-3>
+                    <ion-item style="padding-left: 0px">
+                      <ion-input #payerAmountInput type="number" text-right (change)="payerAmountChange(index)" style="padding-left: 0px"></ion-input>
                     </ion-item>
                   </ion-col>
-                </ion-row>
-              </ion-col>
               <ion-col col-4>
-                <button ion-button icon-only outline color="danger" [ngStyle]="{'border-color':finalPayerList[index].fixed?'#32db64':'#488aff','color':finalPayerList[index].fixed?'#32db64':'#488aff'}" (click)="lockPayer(index)">
-                    <ion-icon [name]="finalPayerList[index].fixed?'lock':'unlock'"></ion-icon>
-                  </button>
-                <button #payerAmountCheck ion-button icon-only outline [ngStyle]="{'border-color':checkIfPayer(index)?'#32db64':'#488aff','color':checkIfPayer(index)?'#32db64':'#488aff','opacity':'1'}" (click)="activatePayer(memb.id,index)">
+                <button ion-button icon-only outline color="danger" style="float:right" [ngStyle]="{'border-color':finalPayerList[index].fixed?'#32db64':'#488aff','color':finalPayerList[index].fixed?'#32db64':'#488aff'}" (click)="lockPayer(index)">
+                  <ion-icon [name]="finalPayerList[index].fixed?'lock':'unlock'"></ion-icon>
+                </button>
+                <button #payerAmountCheck ion-button icon-only outline style="float:right" [ngStyle]="{'border-color':checkIfPayer(index)?'#32db64':'#488aff','color':checkIfPayer(index)?'#32db64':'#488aff','opacity':'1'}" (click)="activatePayer(memb.id,index)">
                   <ion-icon name="checkmark" [ngStyle]="{'opacity':checkIfPayer(index)?'1':'0.3'}"></ion-icon>
                 </button>
               </ion-col>

@@ -120,6 +120,7 @@ export class AddRecordPage {
         fBuyer.fixed = true;
         console.log("test: ",fBuyer);
         fBuyer.amount = bu["amount"];
+        fBuyer.fixed = bu["fixed"];
         this.buyerAmountInput.map((bu,i)=>{bu.value = this.finalBuyerList[i].amount})
       });
       //initialize PAYER
@@ -135,6 +136,7 @@ export class AddRecordPage {
         fPayer.fixed = true;
         console.log("test: ",fPayer);
         fPayer.amount = pa["amount"];
+        fPayer.fixed = pa["fixed"];
         this.payerAmountInput.map((pa,i)=>{pa.value = this.finalPayerList[i].amount})
       });
     });
@@ -278,7 +280,8 @@ getFixedBuyerAmount(){
         if(this.finalBuyerList[i].isBuyer) {
           buyers.push({
             "memberId":this.finalBuyerList[i].memberId,
-            "amount":this.finalBuyerList[i].amount
+            "amount":this.finalBuyerList[i].amount,
+            "fixed":this.finalBuyerList[i].fixed
           });
         }
       }
@@ -288,7 +291,8 @@ getFixedBuyerAmount(){
         if(this.finalPayerList[i].isPayer) {
           payers.push({
             "memberId":this.finalPayerList[i].memberId,
-            "amount":this.finalPayerList[i].amount
+            "amount":this.finalPayerList[i].amount,
+            "fixed":this.finalPayerList[i].fixed
           });
         }
       } 
