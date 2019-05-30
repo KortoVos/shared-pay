@@ -1,6 +1,6 @@
 import { Component, ViewChild,ViewChildren,QueryList} from '@angular/core';
 import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
-import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
@@ -287,7 +287,7 @@ getFixedBuyerAmount(){
       }
 
       var payers = new Array();
-      for(var i:number = 0;i<this.finalPayerList.length;i++) {
+      for(i = 0;i<this.finalPayerList.length;i++) {
         if(this.finalPayerList[i].isPayer) {
           payers.push({
             "memberId":this.finalPayerList[i].memberId,
