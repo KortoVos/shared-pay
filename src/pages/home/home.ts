@@ -18,8 +18,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private afs: AngularFirestore, public afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(res => {
-      if (res && res.uid) {
-        this.groupsCollection = afs.collection<Group>('wallets', ref => ref.where('members_refs', 'array-contains', res.uid));
+      if (res && res.email) {
+        this.groupsCollection = afs.collection<Group>('wallets', ref => ref.where('members_refs', 'array-contains', res.email));
         this.groups = this.groupsCollection.snapshotChanges().map(actions => {
           return actions.map(a => {
             return {
@@ -57,27 +57,28 @@ export class HomePage {
           text: 'Create',
           handler: data => {
             this.afAuth.authState.subscribe(res => {
-              if (res && res.uid) {
+              if (res && res.email) {
                 const newGroup: Group = {
                   name: data.title,
-                  admins_refs:[res.uid],
-                  members_refs:[res.uid]
+                  admins_refs:[res.email],
+                  members_refs:[res.email]
                 }
                 this.groupsCollection.add(newGroup).then(grp=>{
-                  this.afs.doc('user/'+res.uid).ref.get().then(uDoc=>{
+                  this.afs.doc('user/'+res.email).ref.get().then(uDoc=>{
                     var userList = uDoc.data().groups_refs;
                     if(!userList){ userList=[] }
                     userList.push(grp.id);
-                    this.afs.collection('user').doc(res.uid).update({groups_refs:userList});
+                    this.afs.collection('user').doc(res.email).update({groups_refs:userList});
                   });
                   var ava = toonavatar.generate_avatar();
                   var usr:User = {
                     name:res.email,
                     createDate:new Date().toLocaleString(),
                     avatar:ava,
-                    money:0
+                    money:0,
+                    email:res.email
                   }
-                  this.afs.doc('wallets/'+grp.id).collection('wallet_members').doc(new Date().getTime().toString()).set(usr);
+                  this.afs.doc('wallets/'+grp.id).collection('wallet_members').doc(usr.email).set(usr);
                 });
 
               } else {
@@ -91,9 +92,10 @@ export class HomePage {
     prompt.present();
   }
 
-  showGroup(groupId: string) {
+  showGroup(groupId: string,groupName:string) {
     this.navCtrl.push(TabsPage, {
-      groupId: groupId
+      groupId: groupId,
+      groupName:groupName
     });
   }
 

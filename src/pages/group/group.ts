@@ -25,6 +25,7 @@ export class GroupPage {
           return actions.map(a=>{
             return {
               name:a.payload.doc.data().name,
+              email:a.payload.doc.data().email,
               avatar:a.payload.doc.data().avatar,
               createDate:a.payload.doc.data().createDate,
               money:a.payload.doc.data().money

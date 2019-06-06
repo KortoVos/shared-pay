@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
 import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
 
+import {AccountPage} from '../account/account'
+
 @IonicPage()
 @Component({
   selector: 'page-add-record',
@@ -44,7 +46,7 @@ export class AddRecordPage {
     this.groupDoc = afs.doc('wallets/'+navParams.get("groupId"));
     this.group = this.groupDoc.valueChanges();
     this.walletMembersCollection = afs.collection<Group>('wallets').doc(navParams.get("groupId")).collection('wallet_members');
-
+    
     if(navParams.get("recID")){
       this.isLoaded=true;
       this.docId = navParams.get("recID");
@@ -56,6 +58,7 @@ export class AddRecordPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddRecordPage');
+    
     this.initializeNewRecord();
   }
 
@@ -84,6 +87,7 @@ export class AddRecordPage {
         return {
           id:a.payload.doc.id,
           name:a.payload.doc.data().name,
+          email:a.payload.doc.data().email,
           avatar:a.payload.doc.data().avatar,
           createDate:a.payload.doc.data().createDate,
           money:a.payload.doc.data().money,

@@ -28,7 +28,7 @@ declare global {
   interface User{
     id?:string;
     name: string;
-    email?:string;
+    email:string;
     createDate?: string;
     avatar?:string;
     money?:number;

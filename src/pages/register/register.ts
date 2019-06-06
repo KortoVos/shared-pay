@@ -35,7 +35,7 @@ export class RegisterPage {
           email: data.user.email,
           createDate: new Date().toLocaleString(),
         }
-        this.memberCollection.doc(data.user.uid).set(newUser).then(res=>{
+        this.memberCollection.doc(data.user.email).set(newUser).then(res=>{
           const alert = this.alertCtrl.create({
             title: 'Succsefull Registration',
             buttons: ['OK']

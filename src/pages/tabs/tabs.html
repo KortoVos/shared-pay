@@ -1,4 +1,12 @@
-<ion-tabs>
+<ion-header>
+
+  <ion-navbar>
+    <ion-title> {{groupName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-tabs >
     <ion-tab tabIcon="list-box" [root]="tab1" [rootParams]="navParams.data" tabTitle="Wallet"></ion-tab>
     <ion-tab tabIcon="contacts" [root]="tab2" [rootParams]="navParams.data" tabTitle="Member"></ion-tab>
-  </ion-tabs>
+</ion-tabs>
