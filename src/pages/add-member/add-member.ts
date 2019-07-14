@@ -38,11 +38,12 @@ export class AddMemberPage {
           if(!userList){ userList=[] }
           userList.push(grp.id);
           this.afs.collection('user').doc(usr.email).update({groups_refs:userList});
+          var memberRefs = grp.data().members_refs;
+          memberRefs.push(usr.email);
+          this.groupDoc.update({members_refs:memberRefs});
         }
       });
-      var memberRefs = grp.data().members_refs;
-      memberRefs.push(usr.email);
-      this.groupDoc.update({members_refs:memberRefs});
+      
       this.groupDoc.collection('wallet_members').doc(usr.email).set(usr).then(_ =>this.navCtrl.pop());
       
     });
